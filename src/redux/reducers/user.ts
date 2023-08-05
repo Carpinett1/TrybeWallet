@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import { USER_LOGIN } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   email: '',
@@ -6,8 +7,8 @@ const INITIAL_STATE = {
 
 const userReducer = (store = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
-    case 'login':
-      return { ...store, user: action.payload };
+    case USER_LOGIN:
+      return action.payload;
     default: return store;
   }
 };

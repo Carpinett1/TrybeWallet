@@ -1,9 +1,12 @@
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+
 export type ReduxState = {
   user: {
     email: string,
   },
   wallet: {
-    currencies: string[]
+    currencies: string[],
     expenses: [{
       id: number,
       value: number,
@@ -17,3 +20,13 @@ export type ReduxState = {
     idToEdit: number,
   }
 };
+
+export type WalletFormType = {
+  value: string | number,
+  description: string,
+  currency: string,
+  paymentMethod: string,
+  tag: string,
+};
+
+export type Dispatch = ThunkDispatch<ReduxState, null, AnyAction>;

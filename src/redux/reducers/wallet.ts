@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import { FETCH_CURRENCIES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,8 +10,8 @@ const INITIAL_STATE = {
 
 const walletReducer = (store = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
-    case 'wallet':
-      return { ...store, wallet: action.payload };
+    case FETCH_CURRENCIES:
+      return { ...store, currencies: action.payload };
     default: return store;
   }
 };

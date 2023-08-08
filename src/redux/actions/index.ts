@@ -1,5 +1,5 @@
-import { FETCH_CURRENCIES, USER_LOGIN } from './actionTypes';
-import { Dispatch } from '../../types';
+import { EXCHANGE_RATES, FETCH_CURRENCIES, USER_LOGIN } from './actionTypes';
+import { Dispatch, Expense } from '../../types';
 
 export const loginAction = (email: string) => ({
   type: USER_LOGIN,
@@ -23,3 +23,8 @@ export function fetchCurrencies() {
     }
   };
 }
+
+export const expensesAction = (expense: Expense) => ({
+  type: EXCHANGE_RATES,
+  payload: expense,
+});

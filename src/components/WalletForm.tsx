@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ReduxState, WalletFormType } from '../types';
-import { fetchCurrencies } from '../redux/actions';
+import { expensesAction, fetchCurrencies } from '../redux/actions';
+import { fetchExchangeRates } from '../services';
 
 const INITIAL_STATE = {
   value: '',
   description: '',
-  currency: '',
-  paymentMethod: 'Dinheiro',
+  currency: 'USD',
+  method: 'Dinheiro',
   tag: 'Alimentação',
 };
 
 function WalletForm() {
   const [state, setState] = useState<WalletFormType>(INITIAL_STATE);
-  const { value, description, currency, paymentMethod, tag } = state;
+  const { value, description, currency, method, tag } = state;
   const dispatch: Dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ function WalletForm() {
   }, [dispatch]);
 
   const { currencies } = useSelector((store: ReduxState) => store.wallet);
+  const { expenses } = useSelector((store: ReduxState) => store.wallet);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setState({
@@ -28,8 +30,20 @@ function WalletForm() {
     });
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleExpense = async () => ({
+    id: expenses.length,
+    value,
+    description,
+    currency,
+    method,
+    tag,
+    exchangeRates: await fetchExchangeRates(),
+  });
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    const response = await handleExpense();
+    dispatch(expensesAction(response));
     setState(INITIAL_STATE);
   };
 
@@ -73,12 +87,12 @@ function WalletForm() {
             })}
           </select>
         </label>
-        <label htmlFor="paymentMethod">
+        <label htmlFor="method">
           Método de pagamento
           <select
-            id="paymentMethod"
-            name="paymentMethod"
-            value={ paymentMethod }
+            id="method"
+            name="method"
+            value={ method }
             onChange={ handleChange }
             data-testid="method-input"
           >

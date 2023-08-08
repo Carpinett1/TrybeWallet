@@ -1,4 +1,5 @@
-import { EXCHANGE_RATES, FETCH_CURRENCIES, USER_LOGIN } from './actionTypes';
+import
+{ EXCHANGE_RATES, FETCH_CURRENCIES, REMOVE_EXPENSE, USER_LOGIN } from './actionTypes';
 import { Dispatch, Expense } from '../../types';
 
 export const loginAction = (email: string) => ({
@@ -27,4 +28,9 @@ export function fetchCurrencies() {
 export const expensesAction = (expense: Expense) => ({
   type: EXCHANGE_RATES,
   payload: expense,
+});
+
+export const RemoveExpenseAction = (expenses: Expense[]) => ({
+  type: REMOVE_EXPENSE,
+  payload: expenses,
 });

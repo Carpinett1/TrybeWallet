@@ -1,8 +1,18 @@
-import { useSelector } from 'react-redux';
-import { ReduxState } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Expense, ReduxState } from '../types';
+import { RemoveExpenseAction } from '../redux/actions';
 
 function Table() {
   const { expenses } = useSelector((state: ReduxState) => state.wallet);
+  const dispatch = useDispatch();
+
+  const handleRemove = (deletedExpense: Expense) => {
+    const filteredExpenses = expenses
+      .filter((expense) => expense.id !== deletedExpense.id);
+
+    dispatch(RemoveExpenseAction(filteredExpenses));
+  };
+
   return (
     <table>
       <thead>
@@ -32,7 +42,14 @@ function Table() {
               * Number(expense.exchangeRates[expense.currency].ask)).toFixed(2)}
             </td>
             <td>Real</td>
-            <td>Botoes</td>
+            <td>
+              <button
+                data-testid="delete-btn"
+                onClick={ () => handleRemove(expense) }
+              >
+                X
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>

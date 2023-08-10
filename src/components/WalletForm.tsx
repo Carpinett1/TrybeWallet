@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ReduxState, WalletFormType } from '../types';
-import { expensesAction, fetchCurrencies } from '../redux/actions';
+import { EditedExpenseAction, expensesAction, fetchCurrencies } from '../redux/actions';
 import { fetchExchangeRates } from '../services';
 
 const INITIAL_STATE = {
@@ -17,12 +17,27 @@ function WalletForm() {
   const { value, description, currency, method, tag } = state;
   const dispatch: Dispatch = useDispatch();
 
+  const { currencies } = useSelector((store: ReduxState) => store.wallet);
+  const { expenses, editor, idToEdit } = useSelector((store: ReduxState) => store.wallet);
+
   useEffect(() => {
     dispatch(fetchCurrencies());
   }, [dispatch]);
 
-  const { currencies } = useSelector((store: ReduxState) => store.wallet);
-  const { expenses } = useSelector((store: ReduxState) => store.wallet);
+  useEffect(() => {
+    if (editor) {
+      const findExpense = expenses.find((expense) => expense.id === idToEdit);
+      const expenseToEdit = findExpense || INITIAL_STATE;
+      setState({
+        value: expenseToEdit.value,
+        description: expenseToEdit.description,
+        currency: expenseToEdit.currency,
+        method: expenseToEdit.method,
+        tag: expenseToEdit.tag,
+      });
+    }
+    console.log('looping');
+  }, [editor, expenses, idToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setState({
@@ -39,6 +54,18 @@ function WalletForm() {
     tag,
     exchangeRates: await fetchExchangeRates(),
   });
+
+  const handleExpenseEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const editedExpense = expenses.map((expense) => {
+      if (expense.id === idToEdit) {
+        return { ...expense, value, description, currency, method, tag };
+      }
+      return expense;
+    });
+    dispatch(EditedExpenseAction(editedExpense));
+    setState(INITIAL_STATE);
+  };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -117,12 +144,22 @@ function WalletForm() {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button
-          type="submit"
-          onClick={ handleSubmit }
-        >
-          Adicionar despesa
-        </button>
+        {!editor ? (
+          <button
+            type="submit"
+            onClick={ handleSubmit }
+          >
+            Adicionar despesa
+          </button>
+        )
+          : (
+            <button
+              type="submit"
+              onClick={ handleExpenseEdit }
+            >
+              Editar despesa
+            </button>
+          )}
       </form>
     </section>
   );

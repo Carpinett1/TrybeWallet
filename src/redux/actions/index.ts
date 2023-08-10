@@ -1,5 +1,7 @@
 import
-{ EXCHANGE_RATES, FETCH_CURRENCIES, REMOVE_EXPENSE, USER_LOGIN } from './actionTypes';
+{ EDITED_EXPENSE,
+  EDIT_EXPENSE,
+  EXCHANGE_RATES, FETCH_CURRENCIES, REMOVE_EXPENSE, USER_LOGIN } from './actionTypes';
 import { Dispatch, Expense } from '../../types';
 
 export const loginAction = (email: string) => ({
@@ -32,5 +34,15 @@ export const expensesAction = (expense: Expense) => ({
 
 export const RemoveExpenseAction = (expenses: Expense[]) => ({
   type: REMOVE_EXPENSE,
+  payload: expenses,
+});
+
+export const EditExpenseAction = (id: number) => ({
+  type: EDIT_EXPENSE,
+  payload: id,
+});
+
+export const EditedExpenseAction = (expenses: Expense[]) => ({
+  type: EDITED_EXPENSE,
   payload: expenses,
 });

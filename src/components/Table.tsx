@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Expense, ReduxState } from '../types';
-import { RemoveExpenseAction } from '../redux/actions';
+import { EditExpenseAction, RemoveExpenseAction } from '../redux/actions';
 
 function Table() {
   const { expenses } = useSelector((state: ReduxState) => state.wallet);
@@ -11,6 +11,10 @@ function Table() {
       .filter((expense) => expense.id !== deletedExpense.id);
 
     dispatch(RemoveExpenseAction(filteredExpenses));
+  };
+
+  const handleEdit = (id: number) => {
+    dispatch(EditExpenseAction(id));
   };
 
   return (
@@ -43,6 +47,12 @@ function Table() {
             </td>
             <td>Real</td>
             <td>
+              <button
+                data-testid="edit-btn"
+                onClick={ () => handleEdit(expense.id) }
+              >
+                Edit
+              </button>
               <button
                 data-testid="delete-btn"
                 onClick={ () => handleRemove(expense) }

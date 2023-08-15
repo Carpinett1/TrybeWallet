@@ -26,12 +26,9 @@ describe('Login', () => {
   });
 
   test('Ao logar é redirecionado de página e o email salvo no estado global', async () => {
-    const fetchResolvedValue = {
-      json: async () => mockData,
-    } as Response;
-
-    const mockFetch = vi.spyOn(global, 'fetch')
-      .mockResolvedValue(fetchResolvedValue);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (mockData),
+    });
 
     const { store } = renderWithRouterAndRedux(<App />);
 
@@ -45,7 +42,7 @@ describe('Login', () => {
 
     const emailDisplay = screen.getByRole('heading', { level: 2, name: EMAIL });
 
-    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(emailDisplay).toBeInTheDocument();
     expect(store.getState().user.email).toBe(EMAIL);
   });

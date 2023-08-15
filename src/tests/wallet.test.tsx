@@ -22,12 +22,9 @@ const stateWithEmail = {
 
 describe('Wallet', () => {
   test('Todos os inputs aparecem na tela', () => {
-    const fetchResolvedValue = {
-      json: async () => mockData,
-    } as Response;
-
-    const mockFetch = vi.spyOn(global, 'fetch')
-      .mockResolvedValue(fetchResolvedValue);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (mockData),
+    });
 
     renderWithRouterAndRedux(<App />, { initialEntries: ['/', '/carteira'], initialState: stateWithEmail });
 
@@ -38,7 +35,7 @@ describe('Wallet', () => {
     const tag = screen.getByLabelText(/categoria da despesa/i);
     const button = screen.getByRole('button', { name: ADICIONAR_DESPESA });
 
-    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(value).toBeInTheDocument();
     expect(description).toBeInTheDocument();
     expect(currency).toBeInTheDocument();
@@ -48,12 +45,9 @@ describe('Wallet', () => {
   });
 
   test('Ao adicionar uma nova despesa ela é exibida corretamente e adicionada ao estado global', async () => {
-    const fetchResolvedValue = {
-      json: async () => mockData,
-    } as Response;
-
-    const mockFetch = vi.spyOn(global, 'fetch')
-      .mockResolvedValue(fetchResolvedValue);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (mockData),
+    });
 
     const { store } = renderWithRouterAndRedux(<App />, { initialEntries: ['/', '/carteira'], initialState: stateWithEmail });
 
@@ -74,19 +68,16 @@ describe('Wallet', () => {
     const expense = await screen.findByText('Restaurante');
     const total = await screen.findByRole('heading', { level: 2, name: '512.68' });
 
-    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
     expect(expense).toBeInTheDocument();
     expect(total).toBeInTheDocument();
     expect(store.getState().wallet.expenses).toHaveLength(1);
   });
 
   test('é possivel editar e excluir uma despesa da lista', async () => {
-    const fetchResolvedValue = {
-      json: async () => mockData,
-    } as Response;
-
-    const mockFetch = vi.spyOn(global, 'fetch')
-      .mockResolvedValue(fetchResolvedValue);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: async () => (mockData),
+    });
 
     const { store } = renderWithRouterAndRedux(<App />, { initialEntries: ['/', '/carteira'], initialState: stateWithEmail });
 
@@ -118,7 +109,7 @@ describe('Wallet', () => {
     const expense = await screen.findByText('Restaurante');
     const total = await screen.findByRole('heading', { level: 2, name: '570.37' });
 
-    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
     expect(expense).toBeInTheDocument();
     expect(total).toBeInTheDocument();
     expect(store.getState().wallet.expenses).toHaveLength(1);

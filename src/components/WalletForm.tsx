@@ -36,7 +36,6 @@ function WalletForm() {
         tag: expenseToEdit.tag,
       });
     }
-    console.log('looping');
   }, [editor, expenses, idToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -110,7 +109,7 @@ function WalletForm() {
             data-testid="currency-input"
           >
             {currencies.map((curr) => {
-              return <option key={ curr }>{ curr }</option>;
+              return <option key={ curr } value={ curr }>{ curr }</option>;
             })}
           </select>
         </label>

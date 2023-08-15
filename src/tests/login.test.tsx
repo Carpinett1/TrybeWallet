@@ -1,7 +1,9 @@
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/dom';
+import { vi } from 'vitest';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
+import mockData from './helpers/mockData';
 
 const EMAIL = 'teste@email.com';
 const SENHA = '123456';
@@ -24,6 +26,13 @@ describe('Login', () => {
   });
 
   test('Ao logar é redirecionado de página e o email salvo no estado global', async () => {
+    const fetchResolvedValue = {
+      json: async () => mockData,
+    } as Response;
+
+    const mockFetch = vi.spyOn(global, 'fetch')
+      .mockResolvedValue(fetchResolvedValue);
+
     const { store } = renderWithRouterAndRedux(<App />);
 
     const email = screen.getByPlaceholderText(/e-mail/i);
@@ -36,6 +45,7 @@ describe('Login', () => {
 
     const emailDisplay = screen.getByRole('heading', { level: 2, name: EMAIL });
 
+    expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(emailDisplay).toBeInTheDocument();
     expect(store.getState().user.email).toBe(EMAIL);
   });

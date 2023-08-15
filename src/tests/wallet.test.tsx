@@ -22,6 +22,13 @@ const stateWithEmail = {
 
 describe('Wallet', () => {
   test('Todos os inputs aparecem na tela', () => {
+    const fetchResolvedValue = {
+      json: async () => mockData,
+    } as Response;
+
+    const mockFetch = vi.spyOn(global, 'fetch')
+      .mockResolvedValue(fetchResolvedValue);
+
     renderWithRouterAndRedux(<App />, { initialEntries: ['/', '/carteira'], initialState: stateWithEmail });
 
     const value = screen.getByLabelText(/valor/i);
@@ -31,6 +38,7 @@ describe('Wallet', () => {
     const tag = screen.getByLabelText(/categoria da despesa/i);
     const button = screen.getByRole('button', { name: ADICIONAR_DESPESA });
 
+    expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(value).toBeInTheDocument();
     expect(description).toBeInTheDocument();
     expect(currency).toBeInTheDocument();

@@ -1,0 +1,48 @@
+.container {
+  text-align: center;
+  border-radius: 10px;
+  padding: 40px 80px;
+  box-shadow: -3px -3px 9px #2e2d2da2,
+  3px 3px 7px rgba(49, 50, 51, 0.671);
+  background-color: rgba(92, 33, 92, 0.747);
+  min-height: 494px;
+}
+
+.container table {
+  border-collapse: collapse;
+}
+
+.container th {
+  height: 60px;
+  width: 80px;
+  padding: 0 10px;
+  color: white;
+  font-weight: 400;
+  border-bottom: 1px solid white;
+}
+
+.container tr {
+  height: 60px;
+}
+
+.container td {
+  font-size: 14px;
+  height: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.397);
+}
+
+.container tbody tr:hover {
+  background-color: rgba(33, 2, 37, 0.4);
+  color: #fafafa;
+}
+
+.container button {
+  border: none;
+  background: none;
+}
+
+.container img {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}

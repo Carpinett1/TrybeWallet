@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ReduxState, WalletFormType } from '../types';
 import { EditedExpenseAction, expensesAction, fetchCurrencies } from '../redux/actions';
 import { fetchExchangeRates } from '../services';
+import styles from '../styles/walletform.module.css';
 
 const INITIAL_STATE = {
   value: '',
@@ -74,11 +75,12 @@ function WalletForm() {
   };
 
   return (
-    <section>
-      <form>
+    <section className={ styles.container }>
+      <form className={ styles.formContainer }>
         <label htmlFor="value">
           Valor
           <input
+            className={ styles.input }
             type="number"
             id="value"
             name="value"
@@ -91,6 +93,7 @@ function WalletForm() {
         <label htmlFor="description">
           Descrição da despesa
           <input
+            className={ styles.input }
             type="text"
             id="description"
             name="description"
@@ -102,6 +105,7 @@ function WalletForm() {
         <label htmlFor="currency">
           Moeda
           <select
+            className={ styles.select }
             id="currency"
             name="currency"
             value={ currency }
@@ -116,6 +120,7 @@ function WalletForm() {
         <label htmlFor="method">
           Método de pagamento
           <select
+            className={ styles.select }
             id="method"
             name="method"
             value={ method }
@@ -130,6 +135,7 @@ function WalletForm() {
         <label htmlFor="tag">
           Categoria da despesa
           <select
+            className={ styles.select }
             id="tag"
             name="tag"
             value={ tag }
@@ -145,6 +151,7 @@ function WalletForm() {
         </label>
         {!editor ? (
           <button
+            className={ styles.button }
             type="submit"
             onClick={ handleSubmit }
           >
@@ -153,6 +160,7 @@ function WalletForm() {
         )
           : (
             <button
+              className={ styles.button }
               type="submit"
               onClick={ handleExpenseEdit }
             >

@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: fit-content;
+  width: 400px;
+  border-radius: 10px;
+  padding: 40px 80px;
+  box-shadow: -3px -3px 9px #2e2d2da2,
+  3px 3px 7px rgba(49, 50, 51, 0.671);
+  background-color: rgba(92, 33, 92, 0.747);
+  gap: 30px;
+}
+
+.formContainer label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: #fafafac9;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.input {
+  height: 30px;
+  padding-left: 20px;
+  font-size: 18px;
+  outline: none;
+  border: 2px solid rgba(36, 4, 36, 0.541);
+  border-radius: 8px;
+  background: rgba(33, 2, 37, 0.4);
+  color: #fafafab0;
+}
+
+.select {
+  height: 34px;
+  padding-left: 20px;
+  font-size: 18px;
+  outline: none;
+  border: 2px solid rgba(36, 4, 36, 0.541);
+  border-radius: 8px;
+  background: rgba(33, 2, 37, 0.4);
+  color: #fafafab0;
+}
+
+.button {
+  height: 50px;
+  font-size: 18px;
+  outline: none;
+  border: 2px solid rgba(36, 4, 36, 0.541);
+  border-radius: 8px;
+  background: rgba(177, 9, 199, 0.692);
+  color: #fafafac7
+}

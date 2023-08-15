@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginAction } from '../redux/actions';
+import styles from '../styles/login.module.css';
+import logo from '../imgs/logo.png';
 
 const INITIAL_STATE = {
   email: '',
@@ -33,9 +35,11 @@ function Login() {
   };
 
   return (
-    <main>
-      <form onSubmit={ handleSubmit }>
+    <main className={ styles.background }>
+      <form onSubmit={ handleSubmit } className={ styles.formContainer }>
+        <h1><img src={ logo } alt="logo" srcSet="" /></h1>
         <input
+          className={ styles.input }
           type="email"
           name="email"
           placeholder="E-mail"
@@ -44,6 +48,7 @@ function Login() {
           data-testid="email-input"
         />
         <input
+          className={ styles.input }
           type="password"
           name="password"
           placeholder="Senha"
@@ -52,6 +57,7 @@ function Login() {
           data-testid="password-input"
         />
         <button
+          className={ styles.button }
           type="submit"
           disabled={ !validateForm() }
         >

@@ -95,7 +95,7 @@ describe('Wallet', () => {
     await userEvent.selectOptions(tag, 'Alimentação');
     await userEvent.click(buttonAdd);
 
-    const buttonToEdit = await screen.findByRole('button', { name: 'Edit' });
+    const buttonToEdit = await screen.findByAltText('edit');
 
     await userEvent.click(buttonToEdit);
 
@@ -114,7 +114,7 @@ describe('Wallet', () => {
     expect(total).toBeInTheDocument();
     expect(store.getState().wallet.expenses).toHaveLength(1);
 
-    const buttonToDelete = await screen.findByRole('button', { name: 'X' });
+    const buttonToDelete = await screen.findByAltText('trash');
 
     await userEvent.click(buttonToDelete);
 

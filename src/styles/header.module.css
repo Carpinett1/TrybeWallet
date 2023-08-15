@@ -1,0 +1,24 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.container img {
+  height: 30px;
+  width: 30px;
+}
+
+.colorPurple {
+  color: rgb(153, 7, 141);
+}
+
+.skinnyText {
+  font-weight: 300;
+}

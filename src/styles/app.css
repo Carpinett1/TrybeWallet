@@ -1,0 +1,14 @@
+html {
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../imgs/background2.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
